@@ -1,1 +1,1 @@
-# Тестовое задание на вакансию Junir front-end для FunBox
+## Тестовое задание на вакансию Junior front-end для FunBox

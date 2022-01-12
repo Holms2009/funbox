@@ -16,13 +16,20 @@ function App() {
     if (!newPoint.length) return;
 		
     setPoints([...points, newPoint]);
-	}
+  }
+  
+  const handleRemoveItem = (index: number) => {
+    const allPoints: string[] = Array.from(points);
+    allPoints.splice(index, 1);
+
+    setPoints(allPoints);
+  }
 
   return (
     <div className="App">
       <YandexMap />
       <PointInputBlock submitHandler={handleSubmit} />
-      <PointsList pointsArr={points}/>
+      <PointsList pointsArr={points} clickHandler={handleRemoveItem}/>
     </div>
   );
 }

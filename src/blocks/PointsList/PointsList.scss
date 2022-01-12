@@ -1,5 +1,23 @@
 .PointsList {
+  width      : 150px;
+  padding    : 0;
+  margin-left: 20px;
+  list-style : none;
+
   &__item {
-    color: whitesmoke;
+    margin-bottom  : 5px;
+    display        : flex;
+    align-items    : baseline;
+    justify-content: space-between;
+    color          : whitesmoke;
+  }
+
+  &__button {
+    width          : 12px;
+    height         : 12px;
+    border         : none;
+    background     : url('./images/cross.svg') no-repeat 50% 50%;
+    background-size: cover;
+    cursor         : pointer;
   }
 }
