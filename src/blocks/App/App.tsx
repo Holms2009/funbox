@@ -1,24 +1,32 @@
-import React, { FormEvent, useState } from 'react';
+import { FormEvent, useState } from 'react';
 
 import './App.scss';
 import YandexMap from '../YandexMap/YandexMap'
 import PointInputBlock from '../PointInputBlock/PointInputBlock';
 import PointsList from '../PointsList/PointsList';
-import reorder from '../../utils/reorder';
 
 export type pointParams = {
   name: string;
   point: number[];
 }
 
+function reorder(list: pointParams[], startIndex: number, endIndex: number) {
+  const result = Array.from(list);
+  const [removed] = result.splice(startIndex, 1);
+  result.splice(endIndex, 0, removed);
+
+  return result;
+}
+
 function App() {
   const initialState: pointParams[] = [{ name: 'Москва', point: [55.75, 37.57] }];
-  let xOffset: number, yOffset: number;
   const [points, setPoints] = useState(initialState);
 
-  function moveTo(item: HTMLElement, coords: { x: number, y: number }) {
-    item.style.left = String(coords.x - xOffset) + 'px';
-    item.style.top = String(coords.y - yOffset) + 'px';
+  function onDragEnd(result: any) {
+    if (!result.destination) return;
+
+    const items = reorder(points, result.source.index, result.destination.index);
+    setPoints(items);
   }
 
   function handleSubmit(evt: FormEvent<HTMLFormElement>) {
@@ -29,31 +37,6 @@ function App() {
     if (!newPoint.name.length) return;
 
     setPoints([...points, newPoint]);
-  }
-
-  function pickItem(evt: React.MouseEvent<HTMLElement>) {
-    const pickedItem = evt.currentTarget;
-    const eventPosition = { x: evt.clientX, y: evt.clientY };
-
-    xOffset = eventPosition.x - pickedItem.getBoundingClientRect().left;
-    yOffset = eventPosition.y - pickedItem.getBoundingClientRect().top;
-
-    pickedItem.classList.add('picked');
-    moveTo(pickedItem, eventPosition);
-  }
-
-  function mouseMove(evt: React.MouseEvent<HTMLElement>) {
-    const pickedItem = evt.currentTarget;
-
-    if (!pickedItem.matches('.picked')) return;
-
-    const eventPosition = { x: evt.clientX, y: evt.clientY };
-    moveTo(pickedItem, eventPosition);
-  }
-
-  function dropItem(evt: React.MouseEvent<HTMLElement>) {
-    const pickedItem = evt.currentTarget;
-    pickedItem.classList.remove('picked');
   }
 
   const handleRemoveItem = (index: number) => {
@@ -67,7 +50,7 @@ function App() {
     <div className="App">
       <YandexMap points={points} />
       <PointInputBlock submitHandler={handleSubmit} />
-      <PointsList pointsArr={points} clickHandler={handleRemoveItem} onMouseDown={pickItem} onMouseUp={dropItem} onMouseMove={mouseMove} />
+      <PointsList pointsArr={points} clickHandler={handleRemoveItem} dragEnd={onDragEnd}/>
     </div>
   );
 }

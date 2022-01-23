@@ -1,31 +1,51 @@
 import block from "bem-cn";
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 import './PointsList.scss';
 
 import { pointParams } from "../App/App";
-import React from "react";
 
 const b = block('PointsList');
 
 type Props = {
   pointsArr: pointParams[];
   clickHandler: any;
-  onMouseDown: React.MouseEventHandler;
-  onMouseUp: React.MouseEventHandler;
-  onMouseMove: React.MouseEventHandler;
+  dragEnd: any;
 }
 
-function PointsList({ pointsArr, clickHandler, onMouseDown, onMouseUp, onMouseMove }: Props) {
-  const listItems = pointsArr.map((point, index) => (
-    <li className={b('item')} key={index} onMouseDown={onMouseDown} onMouseUp={onMouseUp} onMouseMove={onMouseMove}>
-      <span className={b('point-name')}>{point.name}</span>
-      <button className={b('button')} type='button' onClick={() => clickHandler(index)}></button>
-    </li>
-  ));
-
+function PointsList({ pointsArr, clickHandler, dragEnd }: Props) {
   return (
-    <ul className={b()}>{listItems}</ul>
-  )
+    <DragDropContext onDragEnd={dragEnd}>
+      <Droppable droppableId="droppable">
+        {(provided) => (
+          <div
+            className={b()}
+            {...provided.droppableProps}
+            ref={provided.innerRef}
+          >
+            {pointsArr.map((item, index) => (
+              <Draggable key={index} draggableId={String(index)} index={index}>
+                {(provided) => (
+                  <div>
+                    <div
+                      className={b('item')}
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                    >
+                      {item.name}
+                      <button className={b('button')} type='button' onClick={() => clickHandler(index)}></button>
+                    </div>
+                  </div>
+                )}
+              </Draggable>
+            ))}
+            {provided.placeholder}
+          </div>
+        )}
+      </Droppable>
+    </DragDropContext>
+  );
 }
 
 export default PointsList;
