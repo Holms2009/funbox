@@ -1,25 +1,28 @@
 .PointsList {
-  padding   : 0;
-  margin-top: 20px;
-  width     : fit-content;
+  padding      : 10px 10px 0;
+  margin-top   : 20px;
+  width        : fit-content;
+  border       : 1px solid #FFCC00;
+  border-radius: 5px;
 
   &__item {
-    width          : 150px;
+    width          : 200px;
     margin-bottom  : 10px;
-    padding        : 0 3px;
+    padding        : 0 3px 3px;
     display        : flex;
-    align-items    : baseline;
+    align-items    : center;
     justify-content: space-between;
     color          : whitesmoke;
     cursor         : default;
     border-radius  : 4px;
     user-select    : none;
+    border-bottom  : 1px solid #FFCC00;
     will-change    : transform;
   }
 
   &__button {
-    width          : 12px;
-    height         : 12px;
+    width          : 10px;
+    height         : 10px;
     border         : none;
     background     : url('./images/cross.svg') no-repeat 50% 50%;
     background-size: cover;
