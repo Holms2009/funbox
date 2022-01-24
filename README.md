@@ -10,7 +10,7 @@
   * Дополнительные инструменты: normalize.css, ESLint;
 
 ### Запуск проекта:
-  1. Клонируем проект из репозитория командой `git clone https://github.com/Holms2009/funbox`;
+  1. Клонируем проект из репозитория командой: `git clone https://github.com/Holms2009/funbox`;
   2. Устанавливаем необходимые зависимости: `npm install`;
   3. Запускаем dev-сервер: `npm run start`;
 ### Деплой:

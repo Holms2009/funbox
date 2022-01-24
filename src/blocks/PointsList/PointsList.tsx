@@ -34,7 +34,7 @@ function PointsList({ pointsArr, clickHandler, dragEnd }: Props) {
                   >
                     <span>{index + 1 + '.'}</span>
                     {item.name}
-                    <button className={b('button')} type='button' onClick={() => clickHandler(index)}></button>
+                    <button className={b('button')} type='button' onClick={(evt) => clickHandler(index)}></button>
                   </div>
                 )}
               </Draggable>

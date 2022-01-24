@@ -1,6 +1,7 @@
 import { FormEvent, useState } from 'react';
 
 import './App.scss';
+
 import YandexMap from '../YandexMap/YandexMap'
 import PointInputBlock from '../PointInputBlock/PointInputBlock';
 import PointsList from '../PointsList/PointsList';
@@ -11,7 +12,7 @@ export type pointParams = {
   point: number[];
 }
 
-function reorder(list: pointParams[], startIndex: number, endIndex: number) {
+export function reorder(list: pointParams[], startIndex: number, endIndex: number) {
   const result = Array.from(list);
   const [removed] = result.splice(startIndex, 1);
   result.splice(endIndex, 0, removed);
