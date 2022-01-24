@@ -4,6 +4,7 @@ import './App.scss';
 import YandexMap from '../YandexMap/YandexMap'
 import PointInputBlock from '../PointInputBlock/PointInputBlock';
 import PointsList from '../PointsList/PointsList';
+import { DropResult } from 'react-beautiful-dnd';
 
 export type pointParams = {
   name: string;
@@ -19,10 +20,10 @@ function reorder(list: pointParams[], startIndex: number, endIndex: number) {
 }
 
 function App() {
-  const initialState: pointParams[] = [{ name: 'Москва', point: [55.75, 37.57] }];
+  const initialState: pointParams[] = [{ name: 'Москва', point: [55.75, 37.57] }, { name: 'Питер', point: [55.85, 37.77] }];
   const [points, setPoints] = useState(initialState);
 
-  function onDragEnd(result: any) {
+  function onDragEnd(result: DropResult) {
     if (!result.destination) return;
 
     const items = reorder(points, result.source.index, result.destination.index);
@@ -46,9 +47,17 @@ function App() {
     setPoints(allPoints);
   }
 
+  function handlePointDrag(evt: any, index: number) {
+    const pointsArr = Array.from(points);
+    const newCoords = evt.get('target').geometry.getCoordinates();
+    
+    pointsArr[index].point = newCoords;
+    setPoints(pointsArr);
+  }
+
   return (
     <div className="App">
-      <YandexMap points={points} />
+      <YandexMap points={points} pointDragHandler={handlePointDrag}/>
       <PointInputBlock submitHandler={handleSubmit} />
       <PointsList pointsArr={points} clickHandler={handleRemoveItem} dragEnd={onDragEnd}/>
     </div>

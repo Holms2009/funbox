@@ -1,13 +1,14 @@
-import { YMaps, Map, Placemark, GeoObject } from "react-yandex-maps";
+import { YMaps, Map, Placemark, GeoObject, Polyline } from "react-yandex-maps";
 import { pointParams } from "../App/App";
 
 import './YandexMap.scss';
 
 type Props = {
   points: pointParams[];
+  pointDragHandler: any;
 }
 
-function YandexMap({ points }: Props) {
+function YandexMap({ points, pointDragHandler }: Props) {
   return (
     <YMaps>
       <Map
@@ -29,7 +30,26 @@ function YandexMap({ points }: Props) {
             modules: ['geoObject.addon.balloon']
           }
 
-          return (<Placemark {...marker} key={index}/>)
+          return (<Placemark
+            {...marker}
+            key={index}
+            onDrag={(evt: any) => pointDragHandler(evt, index)}
+            onDragEnd={(evt: any) => pointDragHandler(evt, index)}
+          />)
+        })}
+        {points.map((point, index) => {
+          if (!points[index + 1]) return;
+
+          return (
+            <Polyline
+              geometry={[point.point, points[index + 1].point]}
+              options={{
+                strokeColor: '#000000',
+                strokeWidth: 3,
+                strokeOpacity: 0.5,
+              }}
+            />
+          )
         })}
       </Map>
     </YMaps>
