@@ -20,7 +20,7 @@ function reorder(list: pointParams[], startIndex: number, endIndex: number) {
 }
 
 function App() {
-  const initialState: pointParams[] = [{ name: 'Москва', point: [55.75, 37.57] }, { name: 'Питер', point: [55.85, 37.77] }];
+  const initialState: pointParams[] = [{ name: 'Первая точка', point: [55.75, 37.57] }, { name: 'Вторая точка', point: [55.85, 37.77] }];
   const [points, setPoints] = useState(initialState);
 
   function onDragEnd(result: DropResult) {

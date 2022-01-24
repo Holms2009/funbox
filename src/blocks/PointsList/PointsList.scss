@@ -1,4 +1,5 @@
 .PointsList {
+  box-sizing   : border-box;
   padding      : 10px 10px 0;
   margin-top   : 20px;
   width        : fit-content;
@@ -6,7 +7,8 @@
   border-radius: 5px;
 
   &__item {
-    width          : 200px;
+    box-sizing     : border-box;
+    width          : 260px;
     margin-bottom  : 10px;
     padding        : 0 3px 3px;
     display        : flex;

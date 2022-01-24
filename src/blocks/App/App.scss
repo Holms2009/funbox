@@ -1,6 +1,16 @@
 .App {
-  box-sizing: border-box;
-  padding   : 20px;
-  height    : 100vh;
-  background: linear-gradient(90deg, #303233 70%, #FFCC00 70%);
+  box-sizing    : border-box;
+  padding       : 20px calc(100vw * (500/1920));
+  height        : 100vh;
+  display       : flex;
+  flex-direction: column;
+  background    : #303233;
+
+  @media screen and (max-width: 1024px) {
+    padding: 20px;
+  }
+
+  @media screen and (max-width: 600px) {
+    align-items: center;
+  }
 }

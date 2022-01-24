@@ -1,4 +1,4 @@
-import { YMaps, Map, Placemark, GeoObject, Polyline } from "react-yandex-maps";
+import { YMaps, Map, Placemark, Polyline } from "react-yandex-maps";
 import { pointParams } from "../App/App";
 
 import './YandexMap.scss';
@@ -13,8 +13,8 @@ function YandexMap({ points, pointDragHandler }: Props) {
     <YMaps>
       <Map
         defaultState={{ center: [55.75, 37.57], zoom: 9 }}
-        width={'40vw'}
-        height={'50vh'}
+        width={'100%'}
+        height={'60vh'}
       >
         {points.map((point, index) => {
           const marker = {
@@ -42,6 +42,7 @@ function YandexMap({ points, pointDragHandler }: Props) {
 
           return (
             <Polyline
+              key={index}
               geometry={[point.point, points[index + 1].point]}
               options={{
                 strokeColor: '#000000',

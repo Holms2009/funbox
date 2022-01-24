@@ -24,7 +24,7 @@ function PointsList({ pointsArr, clickHandler, dragEnd }: Props) {
             ref={provided.innerRef}
           >
             {pointsArr.map((item, index) => (
-              <Draggable key={index} draggableId={String(index)} index={index}>
+              <Draggable key={item.name} draggableId={String(index)} index={index}>
                 {(provided) => (
                   <div
                     className={b('item')}
