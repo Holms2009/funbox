@@ -24,7 +24,7 @@ function PointsList({ pointsArr, clickHandler, dragEnd }: Props) {
             ref={provided.innerRef}
           >
             {pointsArr.map((item, index) => (
-              <Draggable key={item.name} draggableId={String(index)} index={index}>
+              <Draggable key={index} draggableId={String(index)} index={index}>
                 {(provided) => (
                   <div
                     className={b('item')}
@@ -34,7 +34,7 @@ function PointsList({ pointsArr, clickHandler, dragEnd }: Props) {
                   >
                     <span>{index + 1 + '.'}</span>
                     {item.name}
-                    <button className={b('button')} type='button' onClick={(evt) => clickHandler(index)}></button>
+                    <button className={b('button')} type='button' onClick={() => clickHandler(index)}></button>
                   </div>
                 )}
               </Draggable>

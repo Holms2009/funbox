@@ -15,7 +15,6 @@ function YandexMap({ points, pointDragHandler }: Props) {
         defaultState={{ center: [55.75, 37.57], zoom: 9 }}
         width={'100%'}
         height={'60vh'}
-        data-testid='yandex-map'
       >
         {points.map((point, index) => {
           const marker = {
