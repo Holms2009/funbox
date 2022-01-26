@@ -1,18 +1,21 @@
 import { YMaps, Map, Placemark, Polyline } from "react-yandex-maps";
+import { MapEvent } from "yandex-maps";
+import { PointDragHandler } from "../../types";
 import { pointParams } from "../App/App";
 
 import './YandexMap.scss';
 
 type Props = {
   points: pointParams[];
-  pointDragHandler: any;
+  pointDragHandler: PointDragHandler;
 }
+
 
 function YandexMap({ points, pointDragHandler }: Props) {
   return (
     <YMaps>
       <Map
-        defaultState={{ center: [55.75, 37.57], zoom: 9 }}
+        defaultState={{ center: [55.75, 37.57], zoom: 15 }}
         width={'100%'}
         height={'60vh'}
       >
@@ -33,8 +36,8 @@ function YandexMap({ points, pointDragHandler }: Props) {
           return (<Placemark
             {...marker}
             key={index}
-            onDrag={(evt: any) => pointDragHandler(evt, index)}
-            onDragEnd={(evt: any) => pointDragHandler(evt, index)}
+            onDrag={(evt: MapEvent) => pointDragHandler(evt, index)}
+            onDragEnd={(evt: MapEvent) => pointDragHandler(evt, index)}
           />)
         })}
         {points.map((point, index) => {

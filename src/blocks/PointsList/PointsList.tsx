@@ -1,5 +1,5 @@
 import block from "bem-cn";
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable, Draggable, OnDragEndResponder } from 'react-beautiful-dnd';
 
 import './PointsList.scss';
 
@@ -9,17 +9,17 @@ const b = block('PointsList');
 
 type Props = {
   pointsArr: pointParams[];
-  clickHandler: any;
-  dragEnd: any;
+  itemRemoveHandler: (index: number) => void;
+  dragEnd: OnDragEndResponder;
 }
 
-function PointsList({ pointsArr, clickHandler, dragEnd }: Props) {
+function PointsList({ pointsArr, itemRemoveHandler, dragEnd }: Props) {
   return (
     <DragDropContext onDragEnd={dragEnd}>
       <Droppable droppableId="droppable">
         {(provided) => (
           <div
-            className={b()}
+            className={b({hidden: !pointsArr.length})}
             {...provided.droppableProps}
             ref={provided.innerRef}
           >
@@ -34,7 +34,7 @@ function PointsList({ pointsArr, clickHandler, dragEnd }: Props) {
                   >
                     <span>{index + 1 + '.'}</span>
                     {item.name}
-                    <button className={b('button')} type='button' onClick={() => clickHandler(index)}></button>
+                    <button className={b('button')} type='button' onClick={() => itemRemoveHandler(index)}></button>
                   </div>
                 )}
               </Draggable>

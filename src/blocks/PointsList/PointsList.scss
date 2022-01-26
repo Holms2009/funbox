@@ -30,4 +30,8 @@
     background-size: cover;
     cursor         : pointer;
   }
+
+  &_hidden {
+    display: none;
+  }
 }
