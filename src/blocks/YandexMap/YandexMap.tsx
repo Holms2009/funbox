@@ -8,16 +8,18 @@ import './YandexMap.scss';
 type Props = {
   points: pointParams[];
   pointDragHandler: PointDragHandler;
+  mapMoveHandler: (evt: MapEvent) => void;
 }
 
 
-function YandexMap({ points, pointDragHandler }: Props) {
+function YandexMap({ points, pointDragHandler, mapMoveHandler }: Props) {
   return (
     <YMaps>
       <Map
         defaultState={{ center: [55.75, 37.57], zoom: 15 }}
         width={'100%'}
         height={'60vh'}
+        onBoundsChange={mapMoveHandler}
       >
         {points.map((point, index) => {
           const marker = {

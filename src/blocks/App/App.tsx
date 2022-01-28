@@ -24,6 +24,7 @@ export function reorder(list: pointParams[], startIndex: number, endIndex: numbe
 function App() {
   const initialState: pointParams[] = [{ name: 'Первая точка', point: [55.75, 37.57] }];
   const [points, setPoints] = useState(initialState);
+  const [mapCenter, setMapCenter] = useState([55.75, 37.57]);
 
   function onDragEnd(result: DropResult) {
     if (!result.destination) return;
@@ -35,7 +36,7 @@ function App() {
   function handleSubmit(evt: FormEvent<HTMLFormElement>) {
     evt.preventDefault();
     const formData = new FormData(evt.currentTarget);
-    const newPoint = { name: String(formData.get('text')), point: [55.75, 37.57] };
+    const newPoint = { name: String(formData.get('text')), point: mapCenter };
 
     if (!newPoint.name.length) return;
 
@@ -49,6 +50,11 @@ function App() {
     setPoints(allPoints);
   }
 
+  function handleMapMove(evt: MapEvent) {
+    const newCenter = evt.get('target').getCenter();
+    setMapCenter(newCenter);
+  }
+
   function handlePointDrag(evt: MapEvent, index: number) {
     const pointsArr = Array.from(points);
     const newCoords = evt.get('target').geometry.getCoordinates();
@@ -59,7 +65,7 @@ function App() {
 
   return (
     <div className="App">
-      <YandexMap points={points} pointDragHandler={handlePointDrag} />
+      <YandexMap points={points} pointDragHandler={handlePointDrag} mapMoveHandler={handleMapMove} />
       <PointInputBlock submitHandler={handleSubmit} />
       <PointsList pointsArr={points} itemRemoveHandler={handleRemoveItem} dragEnd={onDragEnd} />
     </div>
