@@ -1,4 +1,5 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
+import block from 'bem-cn';
 
 import './App.scss';
 
@@ -8,10 +9,7 @@ import PointsList from '../PointsList/PointsList';
 import { DropResult } from 'react-beautiful-dnd';
 import { MapEvent } from 'yandex-maps';
 
-export type pointParams = {
-  name: string;
-  point: number[];
-}
+const b = block('App');
 
 export function reorder(list: pointParams[], startIndex: number, endIndex: number) {
   const result = Array.from(list);
@@ -25,6 +23,8 @@ function App() {
   const initialState: pointParams[] = [{ name: 'Первая точка', point: [55.75, 37.57] }];
   const [points, setPoints] = useState(initialState);
   const [mapCenter, setMapCenter] = useState([55.75, 37.57]);
+  const [theme, setTheme] = useState('dark');
+  const [preload, setPreload] = useState(true);
 
   function onDragEnd(result: DropResult) {
     if (!result.destination) return;
@@ -51,7 +51,7 @@ function App() {
   }
 
   function handleMapMove(evt: MapEvent) {
-    const newCenter = evt.get('target').getCenter();
+    const newCenter = evt.get('newCenter');
     setMapCenter(newCenter);
   }
 
@@ -63,11 +63,29 @@ function App() {
     setPoints(pointsArr);
   }
 
+  function toggleTheme(evt: React.MouseEvent) {
+    let currentTheme = theme;
+
+    if (currentTheme === 'dark') {
+      currentTheme = 'light';
+    } else {
+      currentTheme = 'dark';
+    }
+
+    setTheme(currentTheme);
+    evt.preventDefault();
+  }
+
+  useEffect(() => {
+    setTimeout(() => { setPreload(false) }, 1500);
+  })
+
   return (
-    <div className="App">
+    <div className={b({ dark: theme === 'dark', light: theme === 'light', preload: preload })}>
       <YandexMap points={points} pointDragHandler={handlePointDrag} mapMoveHandler={handleMapMove} />
-      <PointInputBlock submitHandler={handleSubmit} />
-      <PointsList pointsArr={points} itemRemoveHandler={handleRemoveItem} dragEnd={onDragEnd} />
+      <PointInputBlock submitHandler={handleSubmit} theme={theme} />
+      <PointsList pointsArr={points} itemRemoveHandler={handleRemoveItem} dragEnd={onDragEnd} theme={theme} />
+      <div className={b('theme-toggle-button', { dark: theme === 'light', light: theme === 'dark' })} onClick={toggleTheme} title='Переключить тему'></div>
     </div>
   );
 }

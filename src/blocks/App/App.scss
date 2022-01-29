@@ -1,10 +1,24 @@
 .App {
-  box-sizing    : border-box;
-  padding       : 20px calc(100vw * (500/1920));
-  height        : 100vh;
-  display       : flex;
-  flex-direction: column;
-  background    : #303233;
+  box-sizing     : border-box;
+  padding        : 20px calc(100vw * (500/1920));
+  height         : 100vh;
+  display        : flex;
+  flex-direction : column;
+  background     : linear-gradient(90deg, #303233 50%, #FFCC00 50%);
+  background-size: 200%;
+  animation-duration       : 1.5s;
+
+  &_dark {
+    background-position-x    : 0%;
+    animation-name           : light-to-dark;    
+    animation-timing-function: ease-out;
+  }
+
+  &_light {
+    background-position-x    : 100%;
+    animation-name           : dark-to-light;
+    animation-timing-function: ease-out;
+  }
 
   @media screen and (max-width: 1024px) {
     padding: 20px;
@@ -12,5 +26,53 @@
 
   @media screen and (max-width: 600px) {
     align-items: center;
+  }
+
+  &__theme-toggle-button {
+    width        : 40px;
+    height       : 40px;
+    border-radius: 50%;
+    position     : fixed;
+    top          : 50%;
+    left         : 0;
+    transform    : translate(-70%, -50%);
+    transition   : all 0.5s ease;
+    cursor       : pointer;
+
+    &_light {
+      background-color: #FFCC00;
+    }
+
+    &_dark {
+      background-color: #303233;
+    }
+
+    &:hover {
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  &_preload {
+    animation-duration: 0s;
+  }
+}
+
+@keyframes light-to-dark {
+  0% {
+    background-position-x: 100%;
+  }
+
+  100% {
+    background-position-x: 0%;
+  }
+}
+
+@keyframes dark-to-light {
+  0% {
+    background-position-x: 0%;
+  }
+
+  100% {
+    background-position-x: 100%;
   }
 }

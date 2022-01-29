@@ -1,13 +1,11 @@
 import { YMaps, Map, Placemark, Polyline } from "react-yandex-maps";
 import { MapEvent } from "yandex-maps";
-import { PointDragHandler } from "../../types";
-import { pointParams } from "../App/App";
 
 import './YandexMap.scss';
 
 type Props = {
   points: pointParams[];
-  pointDragHandler: PointDragHandler;
+  pointDragHandler: (evt: MapEvent, index: number) => void;
   mapMoveHandler: (evt: MapEvent) => void;
 }
 

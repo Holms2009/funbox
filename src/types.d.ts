@@ -1,3 +1,4 @@
-import { MapEvent } from "yandex-maps";
-
-type PointDragHandler = (evt: MapEvent, index: number) => void;
+type pointParams = {
+  name: string;
+  point: number[];
+}

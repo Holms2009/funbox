@@ -3,16 +3,24 @@
   display   : flex;
 
   @media screen and (max-width: 600px) {
-    width     : 100%;
-    align-self: flex-start;
+    width          : 100%;
+    align-self     : flex-start;
     justify-content: space-between;
   }
 
   &__input {
     margin-right : 10px;
-    border       : 1px solid #FFCC00;
     border-radius: 10px;
     width        : 30%;
+    transition   : border 1s ease;
+
+    &_light {
+      border: 1px solid #FFCC00;
+    }
+
+    &_dark {
+      border: 1px solid #303233;
+    }
 
     @media screen and (max-width: 1024px) {
       width: 40%;
@@ -24,17 +32,32 @@
   }
 
   &__button {
-    padding         : 7px 15px;
-    font-family     : 'Montserrat', sans-serif;
-    font-size       : 12px;
-    border          : none;
-    border-radius   : 10px;
-    background-color: #FFCC00;
-    cursor          : pointer;
-    transition      : all 0.3s ease;
+    padding      : 7px 15px;
+    font-family  : 'Montserrat', sans-serif;
+    font-size    : 12px;
+    border       : none;
+    border-radius: 10px;
+    cursor       : pointer;
+    transition   : all 1s ease;
 
-    &:hover {
-      background-color: #C2A734;
+    &_light {
+      background-color: #FFCC00;
+      color           : black;
+
+      &:hover {
+        transition      : all 0.3s ease;
+        background-color: #C2A734;
+      }
+    }
+
+    &_dark {
+      background-color: #303233;
+      color           : whitesmoke;
+
+      &:hover {
+        transition      : all 0.3s ease;
+        background-color: #525252;
+      }
     }
   }
 }
