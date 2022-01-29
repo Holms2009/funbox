@@ -18,11 +18,18 @@ function PointInputBlock({ submitHandler, theme }: Props) {
 
   return (
 		<form className={b()} onSubmit={submitHandler}>
-			<input className={b('input', {dark: theme === 'light', light: theme === 'dark'})} type="text" name="text"></input>
+      <input
+        className={b('input', { dark: theme === 'light', light: theme === 'dark' })}
+        type="text"
+        name="text"
+        placeholder="Введите имя новой точки"
+        tabIndex={1}
+      ></input>
 			<input
 				className={b('button', {dark: theme === 'light', light: theme === 'dark'})}
 				type="submit"
-				value="Добавить"
+        value="Добавить"
+        tabIndex={2}
 			></input>
 		</form>
 	)
