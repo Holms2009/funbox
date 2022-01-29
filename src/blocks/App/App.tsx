@@ -77,7 +77,7 @@ function App() {
   }
 
   useEffect(() => {
-    setTimeout(() => { setPreload(false) }, 1500);
+    setTimeout(() => { setPreload(false) }, 1000);
   })
 
   return (
